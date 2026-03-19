@@ -23,6 +23,24 @@ from discord.ext.commands.view import StringView
 from emoji import is_emoji
 from packaging.version import Version
 
+from flask import Flask
+from threading import Thread
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "I am alive!"
+
+def run():
+  app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+# Call this before your bot.run()
+keep_alive()
 
 try:
     # noinspection PyUnresolvedReferences
